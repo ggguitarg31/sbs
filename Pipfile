@@ -9,8 +9,9 @@ verify_ssl = true
 Django = "*"
 Pillow = "*"
 django-filter = "*"
-psycopg2 = "*"
-postgres = "*"
+gunicorn = "*"
+django-heroku = "*"
+django-decouple = "*"
 
 [requires]
 python_version = "3.7"
