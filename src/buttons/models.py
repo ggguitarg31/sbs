@@ -44,8 +44,8 @@ class Button(models.Model):
     qualities = models.ManyToManyField(Qualities, related_name='qualities', blank=True)
     button_type = models.ManyToManyField(ButtonCategory, related_name='btn_category')
     date_time = models.DateTimeField(blank=True, null=True, auto_now_add=True)
-    price = models.DecimalField(max_digits=6, decimal_places=2, blank=True)
-    price_unit = models.IntegerField(default=1, blank=True)
+    price = models.DecimalField(max_digits=6, decimal_places=2, blank=True, null=True)
+    price_unit = models.IntegerField(default=1, blank=True, null=True)
     tags = models.ManyToManyField(Tags, related_name='tags', blank=True)
     published = models.BooleanField(default=False)
 
