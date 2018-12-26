@@ -5,7 +5,7 @@
     <style>
         .fixed-top {
             height: 100px;
-            background-color: #2466F8;
+            background-color: darkred;
             position: relative;
             border-top-right-radius: 5px;
             border-top-left-radius: 5px;
@@ -17,28 +17,40 @@
 
         .button_block_short {
             background-color: white;
-            border-radius: 50px;
+            border-radius: 24px;
+            border: black 2px solid;
         }
 
         .button_block_long {
             background-color: white;
-            border-radius: 50px;
+            border-radius: 24px;
         }
 
-        .row {
-            min-width: 300px;
-        }
+        {#.row {#}
+        {#    min-width: 300px;#}
+
 
         .category_heading {
             border-bottom: black 0.2rem solid;
             padding-bottom: 1rem;
+            color: black;
+        }
+
+        .cross {
+            position: absolute;
+            top: 24px;
+            right: 36px;
+            z-index: 5;
+            cursor: pointer;
+            font-weight: bold;
         }
 
         img {
-            width: 240px;
-            height: 240px;
+            width: 180px;
+            height: 180px;
             margin: 10px;
             margin-bottom: 40px;
+            border-radius: 24px;
         }
 
         .shop_name {
@@ -57,7 +69,7 @@
 
 
         .btn_side_panel {
-            padding: 50px;
+            padding: 24px;
             margin: 20px;
             border-left: black 2px solid;
         }
@@ -65,12 +77,12 @@
         .button_block_long .row {
             text-align: left;
             border: black 2px solid;
-            border-radius: 50px;
+            border-radius: 24px;
             margin: 0;
         }
 
 
-        @media (max-width: 720px) {
+        @media (max-width: 762px) {
             .btn_side_panel {
                 position: relative;
                 left: 50%;
@@ -92,19 +104,19 @@
 {% block body %}
     <div class="fixed-top " style="text-align: left">
         <div class="shop_name p-4">Singla's Button Store</div>
-        <form method="get">
-            {{ filter.form.as_p }}
-            <button type="submit">Search</button>
-        </form>
+        {#        <form method="get">#}
+        {#            {{ filter.form.as_p }}#}
+        {#            <button type="submit">Search</button>#}
+        {#        </form>#}
     </div>
     <div class="container">
         {% for btn_type in btn_categories %}
-            <div class="row text-center my-5">
+            <div class="row text-center my-5 justify-content-center">
                 <div class="col col-12">
                     <h3 class="category_heading">{{ btn_type.name }}</h3>
                 </div>
                 {% for btn in btn_type.btn_category.all %}
-                    <div class="col col-12 col-md-6 col-lg-4 my-5" id="short-{{ btn.model_no }}-{{ btn_type.name }}"
+                    <div class="col col-10 col-md-6 col-lg-3 my-5" id="short-{{ btn.model_no }}-{{ btn_type.name }}"
                          onclick="displayInfo('{{ btn.model_no }}','{{ btn_type.name }}')">
                         <div class="button_block_short">
                             <img src="{{ btn.image.url }}">
@@ -112,17 +124,16 @@
                                  style="font-size: medium; font-weight: bold;">{{ btn.model_no }}</div>
                         </div>
                     </div>
-                    <div class="col col-12 btn_long_info" id="long-{{ btn.model_no }}-{{ btn_type.name }}">
+                    <div class="col col-12 col-lg-10 btn_long_info" id="long-{{ btn.model_no }}-{{ btn_type.name }}">
                         <div class="button_block_long">
-                            <div class="cross" onclick="hideInfo('{{ btn.model_no }}','{{ btn_type.name }}')"
-                                 style="position: absolute;top:25px; right: 50px; z-index:5; cursor: pointer; font-weight: bold;">
+                            <div class="cross" onclick="hideInfo('{{ btn.model_no }}','{{ btn_type.name }}')">
                                 X
                             </div>
                             <div class="row my-2">
-                                <div class="col col-12 col-md-5 col-lg-6" style="text-align: center;">
+                                <div class="col col-12 col-md-4 col-lg-5 col-xl-6" style="text-align: center;">
                                     <img src="{{ btn.image.url }}">
                                 </div>
-                                <div class="col col-12 col-md-7 col-lg-6">
+                                <div class="col col-12 col-md-8 col-lg-7 col-xl-6">
                                     <div class="btn_side_panel" style="text-align: left">
                                         <div class="btn_side_details">
                                             <table>
