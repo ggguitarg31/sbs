@@ -1,0 +1,183 @@
+{% extends 'main/index.html' %}
+{% load staticfiles %}
+{% block style %}
+    {{ block.super }}
+    <style>
+        .fixed-top {
+            height: 100px;
+            background-color: #2466F8;
+            position: relative;
+            border-top-right-radius: 5px;
+            border-top-left-radius: 5px;
+        }
+
+        body {
+            background-color: whitesmoke;
+        }
+
+        .button_block_short {
+            background-color: white;
+            border-radius: 50px;
+        }
+
+        .button_block_long {
+            background-color: white;
+            border-radius: 50px;
+        }
+
+        .row {
+            min-width: 300px;
+        }
+
+        .category_heading {
+            border-bottom: black 0.2rem solid;
+            padding-bottom: 1rem;
+        }
+
+        img {
+            width: 240px;
+            height: 240px;
+            margin: 10px;
+            margin-bottom: 40px;
+        }
+
+        .shop_name {
+            font-family: 'Apple Braille';
+            font-size: xx-large;
+            color: whitesmoke;
+        }
+
+        .btn_long_info {
+            display: none;
+        }
+
+        .btn_long_info img {
+            margin: 20px;
+        }
+
+
+        .btn_side_panel {
+            padding: 50px;
+            margin: 20px;
+            border-left: black 2px solid;
+        }
+
+        .button_block_long .row {
+            text-align: left;
+            border: black 2px solid;
+            border-radius: 50px;
+            margin: 0;
+        }
+
+
+        @media (max-width: 720px) {
+            .btn_side_panel {
+                position: relative;
+                left: 50%;
+                top: 10%;
+                border-left: 0;
+                padding: 1vw;
+            }
+
+            table {
+                transform: translateX(-50%);
+            }
+
+            .button_block_long .row {
+                text-align: center;
+            }
+        }
+    </style>
+{% endblock %}
+{% block body %}
+    <div class="fixed-top " style="text-align: left">
+        <div class="shop_name p-4">Singla's Button Store</div>
+        <form method="get">
+            {{ filter.form.as_p }}
+            <button type="submit">Search</button>
+        </form>
+    </div>
+    <div class="container">
+        {% for btn_type in btn_categories %}
+            <div class="row text-center my-5">
+                <div class="col col-12">
+                    <h3 class="category_heading">{{ btn_type.name }}</h3>
+                </div>
+                {% for btn in btn_type.btn_category.all %}
+                    <div class="col col-12 col-md-6 col-lg-4 my-5" id="short-{{ btn.model_no }}-{{ btn_type.name }}"
+                         onclick="displayInfo('{{ btn.model_no }}','{{ btn_type.name }}')">
+                        <div class="button_block_short">
+                            <img src="{{ btn.image.url }}">
+                            <div class="button_id"
+                                 style="font-size: medium; font-weight: bold;">{{ btn.model_no }}</div>
+                        </div>
+                    </div>
+                    <div class="col col-12 btn_long_info" id="long-{{ btn.model_no }}-{{ btn_type.name }}">
+                        <div class="button_block_long">
+                            <div class="cross" onclick="hideInfo('{{ btn.model_no }}','{{ btn_type.name }}')"
+                                 style="position: absolute;top:25px; right: 50px; z-index:5; cursor: pointer; font-weight: bold;">
+                                X
+                            </div>
+                            <div class="row my-2">
+                                <div class="col col-12 col-md-5 col-lg-6" style="text-align: center;">
+                                    <img src="{{ btn.image.url }}">
+                                </div>
+                                <div class="col col-12 col-md-7 col-lg-6">
+                                    <div class="btn_side_panel" style="text-align: left">
+                                        <div class="btn_side_details">
+                                            <table>
+                                                <tr>
+                                                    <th>Model No :</th>
+                                                    <td>{{ btn.model_no }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Size :</th>
+                                                    <td>{{ btn.size }}</td>
+                                                </tr>
+                                                {% if btn.price %}
+                                                    <tr>
+                                                        <th>Price :</th>
+                                                        <td>Rs.{{ btn.price }} / {{ btn.price_unit }} buttons</td>
+                                                    </tr>
+                                                {% endif %}
+                                                {% for quality in btn.qualities.all %}
+                                                    {% if forloop.counter == 1 %}
+                                                        <tr>
+                                                            <th rowspan="{{ btn.qualities.length }}">Qualities :</th>
+                                                            <td>{{ quality.name }}</td>
+                                                        </tr>
+                                                    {% else %}
+                                                        <tr>
+                                                            <th></th>
+                                                            <td>{{ quality.name }}</td>
+                                                        </tr>
+                                                    {% endif %}
+                                                {% endfor %}
+
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endfor %}
+
+    </div>
+{% endblock %}
+{% block scripts %}
+    {{ block.super }}
+    <script>
+        function displayInfo(model_no, category) {
+            $('#short-' + model_no + '-' + category).hide();
+            $('#long-' + model_no + '-' + category).show();
+        }
+
+        function hideInfo(model_no, category) {
+            $('#long-' + model_no + '-' + category).hide();
+            $('#short-' + model_no + '-' + category).show();
+        }
+    </script>
+{% endblock %}
