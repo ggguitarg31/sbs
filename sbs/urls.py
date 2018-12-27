@@ -20,7 +20,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
-    url(r'^$', views.home, name='home'),
+    url(r'^$', views.btn_info, name='home'),
     url(r'^admin/', admin.site.urls),
     url(r'^button/(?P<model_no>[\w.@+-_]+)/$', views.btn_info, name='button'),
     # url(r'^search/$', views.search, name='search'),
