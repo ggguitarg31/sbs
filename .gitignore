@@ -28,7 +28,7 @@ wheels/
 *.egg
 *.sqlite3
 *.sqlite
-migrations/
+
 staticfiles/
 media/
 .idea/
