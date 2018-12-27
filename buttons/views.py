@@ -4,8 +4,8 @@ from .models import Button, ButtonCategory
 
 
 def home(request):
-    btn_category = ButtonCategory.objects.all()
-    return render(request, 'main/index.html', {'btn_category': btn_category})
+    btn_categories = ButtonCategory.objects.all()
+    return render(request, 'main/button_info.html', {'btn_categories': btn_categories})
 
 
 def btn_info(request, model_no):
