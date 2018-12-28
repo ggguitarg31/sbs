@@ -1,10 +1,12 @@
 from django.db import models
 from django.contrib.auth.models import User
+from s3direct.fields import S3DirectField
+
 
 
 class ButtonCategory(models.Model):
     name = models.CharField(max_length=128, unique=True)
-    cover = models.ImageField(upload_to='button_category', blank=True)
+    cover = image = S3DirectField(dest='dest1')
     about = models.TextField(max_length=400, blank=True)
 
     def __str__(self):
@@ -39,7 +41,7 @@ class Qualities(models.Model):
 
 class Button(models.Model):
     model_no = models.CharField(max_length=5, unique=True)
-    image = models.ImageField(upload_to='buttons')
+    image = S3DirectField(dest='dest1')
     size = models.IntegerField(choices=[(i, i) for i in range(14, 37)], default=14)
     qualities = models.ManyToManyField(Qualities, related_name='qualities', blank=True)
     button_type = models.ManyToManyField(ButtonCategory, related_name='btn_category')
