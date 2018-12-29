@@ -15,7 +15,7 @@ class ButtonCategory(models.Model):
 
 
 class Tags(models.Model):
-    name = models.CharField(max_length=25)
+    name = models.CharField(max_length=25, unique=True)
 
     def __str__(self):
         return self.name
@@ -26,7 +26,7 @@ class Tags(models.Model):
 
 
 class Qualities(models.Model):
-    name = models.CharField(max_length=50)
+    name = models.CharField(max_length=50, unique=True)
 
     def __str__(self):
         return self.name
@@ -36,10 +36,24 @@ class Qualities(models.Model):
         verbose_name_plural = "qualities"
 
 
+class Sizes(models.Model):
+    SIZE_CHOICES = (
+        ((str(i) + 'L', str(i) + 'L') for i in range(14, 37))
+    )
+    size = models.CharField(max_length=50, choices=SIZE_CHOICES, default='14L')
+
+    def __str__(self):
+        return self.size
+
+    class Meta:
+        ordering = ['size']
+        verbose_name_plural = "sizes"
+
+
 class Button(models.Model):
     model_no = models.CharField(max_length=5, unique=True)
     image = models.ImageField(upload_to='buttons')
-    size = models.IntegerField(choices=[(i, i) for i in range(14, 37)], default=14)
+    size = models.ManyToManyField(Sizes, related_name='sizes')
     qualities = models.ManyToManyField(Qualities, related_name='qualities', blank=True)
     button_type = models.ManyToManyField(ButtonCategory, related_name='btn_category')
     date_time = models.DateTimeField(blank=True, null=True, auto_now_add=True)

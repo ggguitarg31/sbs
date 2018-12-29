@@ -1,194 +1,389 @@
 {% extends 'main/index.html' %}
 {% load staticfiles %}
 {% block style %}
-    {{ block.super }}
-    <style>
-        .fixed-top {
-            height: 100px;
-            background-color: darkred;
-            position: relative;
-            border-top-right-radius: 5px;
-            border-top-left-radius: 5px;
-        }
+{{ block.super }}
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css"
+      integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+<style>
+    .fixed-top {
+        height: 100px;
+        background-color: #5e0231;
+        position: relative;
+        border-top-right-radius: 5px;
+        border-top-left-radius: 5px;
+    }
 
-        body {
-            background-color: whitesmoke;
-        }
+    body {
+        background-color: #dbc3d0;
+        /*background: linear-gradient(to bottom, rgba(140, 122, 122, 1) 0%, rgba(175, 135, 124, 1) 65%, rgba(175, 135, 124, 1) 100%) fixed;*/
+        /*background: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/coc-background.jpg') no-repeat center center fixed;*/
+        /*background-size: cover;*/
+    }
 
-        .button_block_short {
-            background-color: white;
-            border-radius: 24px;
-            border: black 2px solid;
-        }
+    .category_heading {
+        border-bottom: black 0.2rem solid;
+        padding-bottom: 1rem;
+        color: black;
+    }
 
-        .button_block_long {
-            background-color: white;
-            border-radius: 24px;
-        }
+    img {
+        width: 100%;
+        height: 100%;
+    }
 
-        {#.row {#}
-        {#    min-width: 300px;#}
+    .shop_name {
+        font-family: 'Apple Braille';
+        font-size: xx-large;
+        color: whitesmoke;
+        padding-top: 50px;
+        padding-left: 20px;
+        padding-right: 20px;
+    }
 
+    .shop_name p {
+        transform: translateY(-50%);
+    }
 
-        .category_heading {
-            border-bottom: black 0.2rem solid;
-            padding-bottom: 1rem;
-            color: black;
-        }
+    .btn_long_info img {
+        margin: 20px;
+    }
 
-        .cross {
-            position: absolute;
-            top: 24px;
-            right: 36px;
-            z-index: 5;
-            cursor: pointer;
-            font-weight: bold;
-        }
-
-        img {
-            width: 180px;
-            height: 180px;
-            margin: 10px;
-            margin-bottom: 40px;
-            border-radius: 24px;
-        }
-
+    @media screen and (max-width: 720px) {
         .shop_name {
-            font-family: 'Apple Braille';
-            font-size: xx-large;
-            color: whitesmoke;
+            font-size: x-large;
         }
+    }
 
-        .btn_long_info {
-            display: none;
-        }
+    /*table {*/
+    /*transform: translateX(-50%);*/
+    /*}*/
 
-        .btn_long_info img {
-            margin: 20px;
-        }
+    /*html, body {*/
+    /*background: #E3E3D8;*/
+    /*font-family: sans-serif;*/
+    /*padding: 25px;*/
+    /*}*/
+
+    .wrapper {
+        width: 300px;
+        height: 430px;
+        background: white;
+        margin: auto;
+        padding: 0;
+        position: relative;
+        overflow: hidden;
+        border-radius: 10px 10px 10px 10px;
+        box-shadow: 0;
+        transform: scale(0.95);
+        transition: box-shadow 0.5s, transform 0.5s;
+    }
+
+    .wrapper:hover {
+        transform: scale(1);
+        box-shadow: 5px 20px 30px rgba(0, 0, 0, 0.2);
+    }
+
+    .wrapper .container {
+        width: 100%;
+        height: 100%;
+        padding: 0;
+    }
+
+    .wrapper .container .top {
+        height: 80%;
+        width: 100%;
+        padding: 0;
+        /*background: url(https://s-media-cache-ak0.pinimg.com/736x/49/80/6f/49806f3f1c7483093855ebca1b8ae2c4.jpg) no-repeat center center;*/
+        -webkit-background-size: 100%;
+        -moz-background-size: 100%;
+        -o-background-size: 100%;
+        background-size: contain;
+    }
+
+    .wrapper .container .bottom {
+        width: 200%;
+        height: 20%;
+        transition: transform 0.5s;
+    }
+
+    /*.wrapper .container .bottom.clicked {*/
+    /*transform: translateX(-50%);*/
+    /*}*/
+
+    .wrapper .container .bottom h1 {
+        margin: 0;
+        padding: 0;
+    }
+
+    .wrapper .container .bottom p {
+        margin: 0;
+        padding: 0;
+    }
+
+    .wrapper .container .bottom .left {
+        height: 100%;
+        width: 50%;
+        background: #856046;
+        position: relative;
+        float: left;
+    }
+
+    .wrapper .container .bottom .left .details {
+        padding-top: 20px;
+        float: left;
+        width: calc(70% - 40px);
+        margin-left: 25%;
+        color: #F3F7F6;
+    }
+
+    /*.wrapper .container .bottom .left .buy {*/
+    /*float: right;*/
+    /*width: calc(30% - 2px);*/
+    /*height: 100%;*/
+    /*background: #f1f1f1;*/
+    /*transition: background 0.5s;*/
+    /*border-left: solid thin rgba(0, 0, 0, 0.1);*/
+    /*}*/
+
+    /*.wrapper .container .bottom .left .buy i {*/
+    /*font-size: 30px;*/
+    /*padding: 30px;*/
+    /*color: #254053;*/
+    /*transition: transform 0.5s;*/
+    /*}*/
+
+    /*.wrapper .container .bottom .left .buy:hover {*/
+    /*background: #A6CDDE;*/
+    /*}*/
+
+    /*.wrapper .container .bottom .left .buy:hover i {*/
+    /*transform: translateY(5px);*/
+    /*color: #00394B;*/
+    /*}*/
+
+    /*.wrapper .container .bottom .right {*/
+    /*width: 50%;*/
+    /*background: #A6CDDE;*/
+    /*color: white;*/
+    /*float: right;*/
+    /*height: 200%;*/
+    /*overflow: hidden;*/
+    /*}*/
+
+    /*.wrapper .container .bottom .right .details {*/
+    /*padding: 20px;*/
+    /*float: right;*/
+    /*width: calc(70% - 40px);*/
+    /*}*/
+
+    /*.wrapper .container .bottom .right .done {*/
+    /*width: calc(30% - 2px);*/
+    /*float: left;*/
+    /*transition: transform 0.5s;*/
+    /*border-right: solid thin rgba(255, 255, 255, 0.3);*/
+    /*height: 50%;*/
+    /*}*/
+
+    /*.wrapper .container .bottom .right .done i {*/
+    /*font-size: 30px;*/
+    /*padding: 30px;*/
+    /*color: white;*/
+    /*}*/
+
+    /*.wrapper .container .bottom .right .remove {*/
+    /*width: calc(30% - 1px);*/
+    /*clear: both;*/
+    /*border-right: solid thin rgba(255, 255, 255, 0.3);*/
+    /*height: 50%;*/
+    /*background: #BC3B59;*/
+    /*transition: transform 0.5s, background 0.5s;*/
+    /*}*/
+
+    /*.wrapper .container .bottom .right .remove:hover {*/
+    /*background: #9B2847;*/
+    /*}*/
+
+    /*.wrapper .container .bottom .right .remove:hover i {*/
+    /*transform: translateY(5px);*/
+    /*}*/
+
+    /*.wrapper .container .bottom .right .remove i {*/
+    /*transition: transform 0.5s;*/
+    /*font-size: 30px;*/
+    /*padding: 30px;*/
+    /*color: white;*/
+    /*}*/
+
+    /*.wrapper .container .bottom .right:hover .remove, .wrapper .container .bottom .right:hover .done {*/
+    /*transform: translateY(-100%);*/
+    /*}*/
+
+    .wrapper .inside {
+        z-index: 9;
+        background: #c7a693;
+        width: 140px;
+        height: 140px;
+        position: absolute;
+        top: -70px;
+        right: -70px;
+        border-radius: 0px 0px 200px 200px;
+        transition: all 0.5s, border-radius 2s, top 1s;
+        overflow: hidden;
+    }
+
+    .wrapper .inside .icon {
+        position: absolute;
+        right: 85px;
+        top: 85px;
+        color: white;
+        opacity: 1;
+        font-size: x-large;
+    }
+
+    .wrapper .inside:hover {
+        width: 100%;
+        right: 0;
+        top: 0;
+        border-radius: 0;
+        height: 80%;
+    }
+
+    .wrapper .inside:hover .icon {
+        opacity: 0;
+        right: 15px;
+        top: 15px;
+    }
+
+    .wrapper .inside:hover .contents {
+        opacity: 1;
+        transform: scale(1);
+        transform: translateY(0);
+    }
+
+    .wrapper .inside .contents {
+        margin-top: 10px;
+        padding: 5%;
+        opacity: 0;
+        transform: scale(0.5);
+        transform: translateY(-200%);
+        transition: opacity 0.2s, transform 0.8s;
+    }
+
+    .wrapper .inside .contents table {
+        text-align: left;
+        width: 100%;
+    }
+
+    .wrapper .inside .contents h1, .wrapper .inside .contents p, .wrapper .inside .contents table {
+        color: white;
+    }
+
+    .wrapper .inside .contents p {
+        font-size: 13px;
+    }
 
 
-        .btn_side_panel {
-            padding: 24px;
-            margin: 20px;
-            border-left: black 2px solid;
-        }
-
-        .button_block_long .row {
-            text-align: left;
-            border: black 2px solid;
-            border-radius: 24px;
-            margin: 0;
-        }
-
-
-        @media (max-width: 762px) {
-            .btn_side_panel {
-                position: relative;
-                left: 50%;
-                top: 10%;
-                border-left: 0;
-                padding: 1vw;
-            }
-
-            table {
-                transform: translateX(-50%);
-            }
-
-            .button_block_long .row {
-                text-align: center;
-            }
-        }
-    </style>
+</style>
 {% endblock %}
 {% block body %}
-    <div class="fixed-top " style="text-align: left">
-        <div class="shop_name p-4">Singla's Button Store</div>
-        {#        <form method="get">#}
-        {#            {{ filter.form.as_p }}#}
-        {#            <button type="submit">Search</button>#}
-        {#        </form>#}
+<div class="fixed-top " style="text-align: left">
+    <div class="shop_name">
+        <p>Singla's Button Store</p>
     </div>
-    <div class="container">
-        {% for btn_type in btn_categories %}
-            <div class="row text-center my-5 justify-content-center">
-                <div class="col col-12">
-                    <h3 class="category_heading">{{ btn_type.name }}</h3>
+</div>
+<div class="container">
+    {#{% for btn_type in btn_categories %}#}
+    <div class="row text-center my-5 justify-content-center">
+        <!--<div class="col col-12">-->
+        <!--<h3 class="category_heading">{{ btn_type.name }}</h3>-->
+        <!--</div>-->
+        {#{% for btn in btn_type.btn_category.all %}#}
+        {% for btn in btns %}
+        <div class="wrapper my-3">
+            <div class="container">
+                <div class="top">
+                    <img src="{{ btn.image.url }}">
                 </div>
-                {% for btn in btn_type.btn_category.all %}
-                    <div class="col col-10 col-md-6 col-lg-3 my-5" id="short-{{ btn.model_no }}-{{ btn_type.name }}"
-                         onclick="displayInfo('{{ btn.model_no }}','{{ btn_type.name }}')">
-                        <div class="button_block_short">
-                            <img src="{{ btn.image.url }}">
-                            <div class="button_id"
-                                 style="font-size: medium; font-weight: bold;">{{ btn.model_no }}</div>
+                <div class="bottom">
+                    <div class="left">
+                        <div class="details">
+                            <h1 style="text-transform: uppercase">{{ btn.model_no}}</h1>
+                            <!--<p>{{ btn.size }}L</p>-->
                         </div>
+                        <!--<div class="buy"><i class="material-icons">add_shopping_cart</i></div>-->
                     </div>
-                    <div class="col col-12 col-lg-10 btn_long_info" id="long-{{ btn.model_no }}-{{ btn_type.name }}">
-                        <div class="button_block_long">
-                            <div class="cross" onclick="hideInfo('{{ btn.model_no }}','{{ btn_type.name }}')">
-                                X
-                            </div>
-                            <div class="row my-2">
-                                <div class="col col-12 col-md-4 col-lg-5 col-xl-6" style="text-align: center;">
-                                    <img src="{{ btn.image.url }}">
-                                </div>
-                                <div class="col col-12 col-md-8 col-lg-7 col-xl-6">
-                                    <div class="btn_side_panel" style="text-align: left">
-                                        <div class="btn_side_details">
-                                            <table>
-                                                <tr>
-                                                    <th>Model No :</th>
-                                                    <td>{{ btn.model_no }}</td>
-                                                </tr>
-                                                <tr>
-                                                    <th>Size :</th>
-                                                    <td>{{ btn.size }}</td>
-                                                </tr>
-                                                {% if btn.price %}
-                                                    <tr>
-                                                        <th>Price :</th>
-                                                        <td>Rs.{{ btn.price }} / {{ btn.price_unit }} buttons</td>
-                                                    </tr>
-                                                {% endif %}
-                                                {% for quality in btn.qualities.all %}
-                                                    {% if forloop.counter == 1 %}
-                                                        <tr>
-                                                            <th rowspan="{{ btn.qualities.length }}">Qualities :</th>
-                                                            <td>{{ quality.name }}</td>
-                                                        </tr>
-                                                    {% else %}
-                                                        <tr>
-                                                            <th></th>
-                                                            <td>{{ quality.name }}</td>
-                                                        </tr>
-                                                    {% endif %}
-                                                {% endfor %}
-
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                {% endfor %}
+                    <!--<div class="right">-->
+                    <!--<div class="done"><i class="material-icons">done</i></div>-->
+                    <!--<div class="details">-->
+                    <!--<h1>Chair</h1>-->
+                    <!--<p>Added to your cart</p>-->
+                    <!--</div>-->
+                    <!--<div class="remove"><i class="material-icons">clear</i></div>-->
+                    <!--</div>-->
+                </div>
             </div>
-        {% endfor %}
+            <div class="inside">
+                <div class="icon"><i class="fas fa-info-circle"></i>
+                </div>
+                <div class="contents">
+                    <table style="text-align: center">
+                        <tr>
+                            <th>Model No</th>
+                        </tr>
+                        <tr>
+                            <td style="text-transform: uppercase;">{{ btn.model_no}}</td>
+                        </tr>
+                        <tr>
+                            <th>Sizes</th>
+                        </tr>
+                        <tr>
+                            <td>
+                                {% for sizes in btn.size.all %}
+                                {% if forloop.last %}
+                                {{ sizes.size }}
+                                {% else %}
+                                {{ sizes.size }},
+                                {% endif %}
+                                {% endfor %}
+                            </td>
+                        </tr>
+                        {% if btn.price %}
+                        <tr>
+                            <th>Price</th>
+                        </tr>
+                        <tr>
+                            <td>{{ btn.price }} / {{btn.price_unit}} buttons</td>
+                        </tr>
+                        {% endif %}
+                        <tr>
+                            <th>Qualities</th>
+                        </tr>
+                        {% for quality in btn.qualities.all %}
+                        <tr>
+                            <td>{{ quality.name }}</td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!--</div>-->
 
+        {% endfor %}
     </div>
+    {# {% endfor %}#}
+
+</div>
 {% endblock %}
 {% block scripts %}
-    {{ block.super }}
-    <script>
-        function displayInfo(model_no, category) {
-            $('#short-' + model_no + '-' + category).hide();
-            $('#long-' + model_no + '-' + category).show();
-        }
-
-        function hideInfo(model_no, category) {
-            $('#long-' + model_no + '-' + category).hide();
-            $('#short-' + model_no + '-' + category).show();
-        }
-    </script>
+{{ block.super }}
+<script>
+    // $('.buy').click(function () {
+    //     $('.bottom').addClass("clicked");
+    // });
+    //
+    // $('.remove').click(function () {
+    //     $('.bottom').removeClass("clicked");
+    // });
+</script>
 {% endblock %}
