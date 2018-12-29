@@ -4,13 +4,13 @@
 {{ block.super }}
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css"
       integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/magnify/2.3.2/css/magnify.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/magnify/2.3.2/css/magnify.min.css.map">
 <style>
     .fixed-top {
         height: 100px;
         background-color: #5e0231;
         position: relative;
-        border-top-right-radius: 5px;
-        border-top-left-radius: 5px;
     }
 
     body {
@@ -281,7 +281,11 @@
     .wrapper .inside .contents p {
         font-size: 13px;
     }
-
+.magnify{
+    width: 100%;
+    height:100%;
+}
+.magnify > .magnify-lens { background-color: color !important; }
 
 </style>
 {% endblock %}
@@ -290,6 +294,7 @@
     <div class="shop_name">
         <p>Singla's Button Store</p>
     </div>
+
 </div>
 <div class="container">
     {#{% for btn_type in btn_categories %}#}
@@ -302,7 +307,7 @@
         <div class="wrapper my-3">
             <div class="container">
                 <div class="top">
-                    <img src="{{ btn.image.url }}">
+                    <img src="{{ btn.image.url }}" class="zoom" data-magnify-src="{{ btn.image.url }}">
                 </div>
                 <div class="bottom">
                     <div class="left">
@@ -310,7 +315,7 @@
                             <h1 style="text-transform: uppercase">{{ btn.model_no}}</h1>
                             <!--<p>{{ btn.size }}L</p>-->
                         </div>
-                        <!--<div class="buy"><i class="material-icons">add_shopping_cart</i></div>-->
+                        <!--<div class="buy"><i class="fas fa-plus"></i></div>-->
                     </div>
                     <!--<div class="right">-->
                     <!--<div class="done"><i class="material-icons">done</i></div>-->
@@ -377,6 +382,11 @@
 {% endblock %}
 {% block scripts %}
 {{ block.super }}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/magnify/2.3.2/js/jquery.magnify.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/magnify/2.3.2/js/jquery.magnify.min.js.map"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/magnify/2.3.2/js/jquery.magnify-mobile.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/magnify/2.3.2/js/jquery.magnify-mobile.min.js.map"></script>
 <script>
     // $('.buy').click(function () {
     //     $('.bottom').addClass("clicked");
@@ -385,5 +395,8 @@
     // $('.remove').click(function () {
     //     $('.bottom').removeClass("clicked");
     // });
+    $(document).ready(() => {
+        $('.zoom').magnify();
+    })
 </script>
 {% endblock %}
