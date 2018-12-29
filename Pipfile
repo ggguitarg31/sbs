@@ -14,7 +14,8 @@ django-heroku = "*"
 django-decouple = "*"
 dj-database-url = "*"
 whitenoise = "*"
-django-s3direct = "*"
+boto3 = "*"
+django-storages = "*"
 
 [requires]
 python_version = "3.7"

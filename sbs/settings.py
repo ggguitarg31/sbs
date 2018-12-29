@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'buttons',
     's3direct',
+    'storages',
 ]
 
 MIDDLEWARE = [
@@ -131,17 +132,35 @@ USE_L10N = True
 
 USE_TZ = True
 
+AWS_STORAGE_BUCKET_NAME = config('S3_BUCKET')
+AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
+AWS_S3_OBJECT_PARAMETERS = {
+    'CacheControl': 'max-age=86400',
+}
+AWS_LOCATION = 'static'
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-STATIC_URL = '/static/'
+# STATIC_URL = '/static/'
+STATIC_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
+
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 #  Add configuration for static files storage using whitenoise
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),
+]
+
+
+
 
 # Extra places for collectstatic to find static files.
 # STATICFILES_DIRS = (
@@ -160,43 +179,3 @@ AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = config('AWS_SECRET_ACCESS_KEY')
 
 AWS_STORAGE_BUCKET_NAME = config('S3_BUCKET')
-
-# The region of your bucket, more info:
-# http://docs.aws.amazon.com/general/latest/gr/rande.html#s3_region
-S3DIRECT_REGION = 'ap-south-1'
-
-# Destinations, with the following keys:
-#
-# key [required] Where to upload the file to, can be either:
-#     1. '/' = Upload to root with the original filename.
-#     2. 'some/path' = Upload to some/path with the original filename.
-#     3. functionName = Pass a function and create your own path/filename.
-# key_args [optional] Arguments to be passed to 'key' if it's a function.
-# auth [optional] An ACL function to whether the current Django user can perform this action.
-# allowed [optional] List of allowed MIME types.
-# acl [optional] Give the object another ACL rather than 'public-read'.
-# cache_control [optional] Cache control headers, eg 'max-age=2592000'.
-# content_disposition [optional] Useful for sending files as attachments.
-# bucket [optional] Specify a different bucket for this particular object.
-# server_side_encryption [optional] Encryption headers for buckets that require it.
-
-S3DIRECT_DESTINATIONS = {
-    'dest1': {
-        # REQUIRED
-        'key': 'uploads/images',
-
-        # OPTIONAL
-        'auth': lambda u: u.is_staff,  # Default allow anybody to upload
-        'allowed': ['image/jpeg', 'image/png', 'video/mp4'],  # Default allow all mime types
-        'bucket': 'pdf-bucket',  # Default is 'AWS_STORAGE_BUCKET_NAME'
-        'acl': 'private',  # Defaults to 'public-read'
-        'cache_control': 'max-age=2592000',  # Default no cache-control
-        'content_disposition': 'attachment',  # Default no content disposition
-        'content_length_range': (5000, 20000000),  # Default allow any size
-        'server_side_encryption': 'AES256',  # Default no encryption
-    },
-    'example_other': {
-        'key': lambda filename, args: args + '/' + filename,
-        'key_args': 'uploads/images',  # Only if 'key' is a function
-    }
-}

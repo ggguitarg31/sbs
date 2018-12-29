@@ -23,6 +23,5 @@ urlpatterns = [
     url(r'^$', views.home, name='home'),
     url(r'^admin/', admin.site.urls),
     url(r'^button/(?P<model_no>[\w.@+-_]+)/$', views.btn_info, name='button'),
-    url(r'^s3direct/', include('s3direct.urls')),
     # url(r'^search/$', views.search, name='search'),
-]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+]
