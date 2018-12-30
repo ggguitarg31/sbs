@@ -10,6 +10,10 @@ def home(request):
     # return render(request, 'main/button_info.html', {'btn_categories': btn_categories})
 
 
+def contact_us(request):
+    return render(request, 'main/contact_us.html')
+
+
 def btn_info(request, model_no):
     btn_categories = ButtonCategory.objects.all()
     return render(request, 'main/button_info.html', {'btn_categories': btn_categories})

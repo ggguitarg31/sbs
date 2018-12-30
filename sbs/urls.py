@@ -21,6 +21,7 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     url(r'^$', views.home, name='home'),
+    url(r'^contact-us$', views.contact_us, name='contact_us'),
     url(r'^admin/', admin.site.urls),
     url(r'^button/(?P<model_no>[\w.@+-_]+)/$', views.btn_info, name='button'),
     # url(r'^search/$', views.search, name='search'),

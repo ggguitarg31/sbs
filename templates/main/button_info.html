@@ -14,7 +14,7 @@
     }
 
     body {
-        background-color: #dbc3d0;
+        background-color: #020213;
         /*background: linear-gradient(to bottom, rgba(140, 122, 122, 1) 0%, rgba(175, 135, 124, 1) 65%, rgba(175, 135, 124, 1) 100%) fixed;*/
         /*background: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/coc-background.jpg') no-repeat center center fixed;*/
         /*background-size: cover;*/
@@ -290,12 +290,34 @@
 </style>
 {% endblock %}
 {% block body %}
-<div class="fixed-top " style="text-align: left">
-    <div class="shop_name">
-        <p>Singla's Button Store</p>
-    </div>
+<!--<div class="fixed-top " style="text-align: left">-->
+    <!--<div class="shop_name">-->
+        <!--<p>Singla's Button Store</p>-->
+    <!--</div>-->
 
-</div>
+<!--</div>-->
+<nav class="navbar navbar-expand-md navbar-dark " style="background:#5e0231 ">
+  <a class="navbar-brand" href="#">Singla Button Store</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mx-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/contact-us">Contact Us</a>
+      </li>
+    </ul>
+    <form class="form-inline my-2 my-lg-0">
+      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" style="">
+      <button class="btn my-2 my-sm-0" type="submit" style="border-radius: 50%"><i class="fa fa-search"></i></button>
+
+    </form>
+  </div>
+</nav>
 <div class="container">
     {#{% for btn_type in btn_categories %}#}
     <div class="row text-center my-5 justify-content-center">
